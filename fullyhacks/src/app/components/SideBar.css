@@ -1,64 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .side-bar {
 position: fixed;
 top: 0;
-right: 0;   
-width: 275px;
+left: 0;
+width: 250px;
 height: 100vh;
-background: linear-gradient(to bottom, #1a1f42, #1d2147);
-color: white;
-padding: 20px;
-box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
+border-right: 1px solid rgba(138, 43, 226, 0.3);
+box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+overflow: hidden;
 transition: transform 0.3s ease-in-out;
-transform: translateX(0); 
 z-index: 1000;
-border-radius: 25px;
-border: 7px solid #ffffff;
-box-shadow: 0 0 10px rgba(255, 255, 255, .3);
+font-family: 'Space Mono', monospace;
+}
 
+.side-bar::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+pointer-events: none;
+}
+
+.side-bar::after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='rgba(255, 255, 255, 0.5)'/%3E%3C/svg%3E");
+opacity: 0.3;
+pointer-events: none;
 }
 
 .side-bar.hidden {
-transform: translateX(100%);
+transform: translateX(-100%);
 }
 
 .toggle-button {
 position: fixed;
 top: 20px;
-right: 20px; 
-background: transparent;
-border: none;
+left: 20px;
+z-index: 1001;
+background: rgba(138, 43, 226, 0.2);
+border: 1px solid rgba(138, 43, 226, 0.3);
+border-radius: 50%;
+width: 40px;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
 cursor: pointer;
-z-index: 1100;
+transition: all 0.3s ease;
+color: white;
+font-size: 18px;
 }
 
-.toggle-button img {
-width: 30px;
-height: 30px;
+.toggle-button:hover {
+background: rgba(138, 43, 226, 0.3);
+transform: scale(1.1);
 }
 
 .user-profile {
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-bottom: 20px;
+padding: 20px;
+text-align: center;
+border-bottom: 1px solid rgba(138, 43, 226, 0.2);
 }
 
-.user-profile img {
-width: 60px;
-height: 60px;
+.user-profile-img {
+width: 80px;
+height: 80px;
 border-radius: 50%;
-background-color: #444;
-margin-bottom: 10px;
+border: 2px solid rgba(138, 43, 226, 0.5);
+box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+transition: all 0.3s ease;
+object-fit: cover;
+}
+
+.user-profile-img:hover {
+transform: scale(1.05);
+border-color: rgba(138, 43, 226, 0.8);
+box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+}
+
+.user-profile-img.fallback {
+background: linear-gradient(135deg, #8a2be2 0%, #4b0082 100%);
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+font-weight: bold;
 }
 
 .list-of-user {
 list-style: none;
 padding: 0;
-text-align: center;
+margin: 10px 0 0 0;
+color: white;
 }
 
 .user-name {
+font-size: 18px;
 font-weight: bold;
+margin-bottom: 5px;
+text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
+}
+
+.connections-container {
+padding: 20px;
+position: relative;
+}
+
+.constellations-header {
+color: white;
+font-size: 16px;
+margin-bottom: 15px;
+text-align: center;
+text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
+}
+
+.scroll-connection {
+max-height: calc(100vh - 250px);
+overflow-y: auto;
+padding-right: 10px;
+scrollbar-width: thin;
+scrollbar-color: rgba(138, 43, 226, 0.3) rgba(138, 43, 226, 0.1);
+}
+
+.scroll-connection::-webkit-scrollbar {
+width: 5px;
+}
+
+.scroll-connection::-webkit-scrollbar-track {
+background: rgba(138, 43, 226, 0.1);
+border-radius: 10px;
+}
+
+.scroll-connection::-webkit-scrollbar-thumb {
+background: rgba(138, 43, 226, 0.3);
+border-radius: 10px;
+}
+
+.scroll-connection::-webkit-scrollbar-thumb:hover {
+background: rgba(138, 43, 226, 0.5);
+}
+
+.loading-stars {
+color: white;
+text-align: center;
+padding: 20px;
+font-style: italic;
+}
+
+/* Scroll controls */
+.scroll-controls {
+display: flex;
+justify-content: center;
+gap: 10px;
+margin-top: 10px;
+}
+
+.scroll-btn {
+background: rgba(138, 43, 226, 0.2);
+color: white;
+border: 1px solid rgba(138, 43, 226, 0.3);
+border-radius: 50%;
+width: 30px;
+height: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: all 0.3s ease;
+font-size: 16px;
+}
+
+.scroll-btn:hover:not(:disabled) {
+background: rgba(138, 43, 226, 0.4);
+transform: scale(1.1);
+}
+
+.scroll-btn:disabled {
+opacity: 0.3;
+cursor: not-allowed;
+}
+
+/* Adjust Card component for sidebar */
+.scroll-connection .cosmic-card {
+width: 100%;
+margin: 10px 0;
+padding: 15px;
+}
+
+.scroll-connection .card-avatar {
+width: 50px;
+height: 50px;
+}
+
+.scroll-connection .card-content {
+flex-direction: row;
+align-items: center;
+justify-content: flex-start;
+}
+
+.scroll-connection .card-info {
+text-align: left;
+margin-left: 15px;
+}
+
+.scroll-connection .card-name {
+font-size: 16px;
+}
+
+.scroll-connection .card-location {
+font-size: 12px;
+}
+
+.scroll-connection .friend-count {
+margin-top: 5px;
+padding: 3px 10px;
+}
+
+.addfollow-btn {
+background: rgba(138, 43, 226, 0.3);
+color: white;
+border: 1px solid rgba(138, 43, 226, 0.5);
+border-radius: 20px;
+padding: 5px 15px;
+margin: 10px 0;
+cursor: pointer;
+transition: all 0.3s ease;
+font-family: 'Space Mono', monospace;
+font-size: 12px;
+}
+
+.addfollow-btn:hover {
+background: rgba(138, 43, 226, 0.5);
+transform: scale(1.05);
 }
 
 .sidebar_img {
@@ -67,7 +251,8 @@ font-weight: bold;
 }
 
 .sidebar_img:hover {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    box-shadow: 10px 0 30px rgba(255, 255, 255, 1);
     transition: all 0.3s ease;
-    transform: scaleX(1.7);
+    transform: scale(2);
+    background-color: transparent;
 }
