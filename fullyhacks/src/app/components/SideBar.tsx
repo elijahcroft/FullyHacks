@@ -15,7 +15,7 @@ const SideBar = () => {
   });
 
   const [showSideBar, setSideBar] = useState(false);
-  const [showConnectionBTN] = useState(false);
+  // const [showConnectionBTN] = useState(false);
 
   function toggleSideBar() {
     setSideBar(prevSide => !prevSide);

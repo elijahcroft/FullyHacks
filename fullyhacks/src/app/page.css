@@ -85,7 +85,7 @@ input:hover {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background-color: #24292e; /* GitHub black */
+    background-color: #24292e;
     color: white;
     border: none;
     padding: 12px 20px;
