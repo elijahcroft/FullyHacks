@@ -9,7 +9,7 @@ export async function getFriendNamesById(userId) {
   try {
     // Step 1: Get the user's friend_ids
     const { data: user, error: userError } = await supabase
-      .from('users')
+      .from('profiles')
       .select('friend_ids')
       .eq('id', userId)
       .single()
@@ -25,7 +25,7 @@ export async function getFriendNamesById(userId) {
 
     // Step 2: Get the names of those friends
     const { data: friends, error: friendsError } = await supabase
-      .from('users')
+      .from('profiles')
       .select('id, name')
       .in('id', friendIds)
 
