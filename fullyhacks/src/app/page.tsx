@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 
   const MainPage = () => {
     const { data: session } = useSession();
+    
+    
 
     return (
       <div className='center'>
@@ -18,7 +20,7 @@ import { useRouter } from 'next/router';
               Sign Out
             </button>
           ) : (
-            <button className="github-btn" onClick={() => signIn("github")}>
+            <button className="github-btn" onClick={() => signIn("github", { callbackUrl: "http://localhost:3000/graph" })}>
               <svg
                 className="github-icon"
                 xmlns="http://www.w3.org/2000/svg"
