@@ -210,3 +210,32 @@
   color: white;
   font-size: 14px;
 }
+
+.add-friend-btn, .add-node-btn {
+  background-color: transparent;
+  color: #4a90e2;
+  border: 2px solid #4a90e2;
+  border-radius: 50px; /* Make it more rounded */
+  padding: 5px 15px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.add-friend-btn:hover, .add-node-btn:hover {
+  background-color: #4a90e2;
+  color: white;
+  transform: scale(1.05);
+}
+
+.add-friend-btn.disabled {
+  background-color: transparent;
+  color: #cccccc;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.styled-btn {
+  margin-top: 10px;
+  font-weight: bold;
+}

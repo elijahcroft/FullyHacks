@@ -16,7 +16,11 @@ interface User {
   friends?: string[];
 }
 
-const SideBar = () => {
+interface SideBarProps {
+  onAddNode: (name: string) => void; // Ensure this matches the function signature
+}
+
+const SideBar: React.FC<SideBarProps> = ({ onAddNode }) => {
   const [profileInfo] = useState({
     id: 0,
     img: user,
@@ -75,11 +79,16 @@ const SideBar = () => {
     }
   };
 
+  const handleAddNode = () => {
+    const newNodeName = prompt("Enter the name of the new node:");
+    if (newNodeName) {
+      onAddNode(newNodeName); // Ensure this calls the passed function
+    }
+  };
+
   return (
     <div>
-      <button className="toggle-button" onClick={toggleSidebar}>
-        {isOpen ? '✕' : '☰'}
-      </button>
+      
 
       <div className={`side-bar ${isOpen ? '' : 'hidden'}`}>
         <div className="user-profile">
@@ -100,6 +109,9 @@ const SideBar = () => {
             <button className="addfollow-btn" onClick={() => removeFriend(1,2)}>Add Follow</button>
             <li>{profileInfo.location}</li>
           </ul>
+          <button className="add-node-btn styled-btn" onClick={handleAddNode}>
+            Add Node
+          </button>
         </div>
 
         <div className="connections-container">
@@ -119,6 +131,7 @@ const SideBar = () => {
                   name={user.name || 'Unknown Explorer'}
                   location={user.location || 'Unknown Location'}
                   avatarUrl={user.avatar_url}
+                  onAddNode={onAddNode} // Pass the onAddNode prop here
                 />
               ))
             )}

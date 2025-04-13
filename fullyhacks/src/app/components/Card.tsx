@@ -7,13 +7,15 @@ interface CardProps {
   name: string;
   location?: string;
   avatarUrl?: string;
+  onAddNode: (name: string) => void; // Add this prop to handle adding a node
 }
 
-const Card: React.FC<CardProps> = ({ userId, name, location, avatarUrl }) => {
+const Card: React.FC<CardProps> = ({ userId, name, location, avatarUrl, onAddNode }) => {
   const [friendCount, setFriendCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [friends, setFriends] = useState<any[]>([]);
+  const [isFriendAdded, setIsFriendAdded] = useState<boolean>(false);
   const detailsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,6 +53,11 @@ const Card: React.FC<CardProps> = ({ userId, name, location, avatarUrl }) => {
     setShowDetails(!showDetails);
   };
 
+  const handleAddFriend = () => {
+    onAddNode(name); // Add a node with the friend's name
+    setIsFriendAdded(true); // Disable the button after adding
+  };
+
   return (
     <div className="cosmic-card">
       <div className="card-glow"></div>
@@ -67,43 +74,13 @@ const Card: React.FC<CardProps> = ({ userId, name, location, avatarUrl }) => {
         <div className="card-info">
           <h3 className="card-name">{name}</h3>
           {location && <p className="card-location">{location}</p>}
-          <div 
-            className="friend-count" 
-            onClick={toggleDetails}
-            style={{ cursor: friends.length > 0 ? 'pointer' : 'default' }}
+          <button 
+            className={`add-friend-btn minimal-btn ${isFriendAdded ? 'disabled' : ''}`} 
+            onClick={handleAddFriend} 
+            disabled={isFriendAdded}
           >
-            <span className="star-icon">★</span>
-            <span className="count">
-              {loading ? '...' : `${friendCount} ${friendCount === 1 ? 'friend' : 'friends'}`}
-            </span>
-          </div>
-          
-          {showDetails && friends.length > 0 && (
-            <div className="friend-details" ref={detailsRef}>
-              <div className="friend-details-header">
-                <h4>Friends</h4>
-                <button className="close-details" onClick={() => setShowDetails(false)}>×</button>
-              </div>
-              <div className="friend-list">
-                {friends.map((friend) => (
-                  <div key={friend.id} className="friend-item">
-                    <div className="friend-avatar">
-                      {friend.avatar_url ? (
-                        <img src={friend.avatar_url} alt={friend.name} />
-                      ) : (
-                        <div className="friend-avatar-fallback">
-                          {friend.name ? friend.name.charAt(0).toUpperCase() : '?'}
-                        </div>
-                      )}
-                    </div>
-                    <div className="friend-info">
-                      <div className="friend-name">{friend.name || 'Unknown'}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+            {isFriendAdded ? 'Added' : 'Add'}
+          </button>
         </div>
       </div>
     </div>
