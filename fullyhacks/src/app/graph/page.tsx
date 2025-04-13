@@ -5,7 +5,6 @@ import "./graph.css";
 import { getFriendNames } from '../lib/supabase_helper';
 import SideBar from '../components/SideBar';
 
-// Define proper types for our nodes and links
 interface GraphNode extends d3.SimulationNodeDatum {
   id: string;
   name: string;
@@ -22,7 +21,6 @@ const GraphPage = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    // Set dimensions based on window size
     const updateDimensions = () => {
       setDimensions({
         width: window.innerWidth * 0.97,
@@ -30,10 +28,10 @@ const GraphPage = () => {
       });
     };
 
-    // Initial dimensions
+    //HELLO
+
     updateDimensions();
 
-    // Update dimensions on window resize
     window.addEventListener('resize', updateDimensions);
     
     return () => {
@@ -45,7 +43,6 @@ const GraphPage = () => {
   useEffect(() => {
     if (!graphRef.current || dimensions.width === 0) return;
 
-    // Clear previous SVG if it exists
     d3.select(graphRef.current).selectAll("svg").remove();
     d3.select(graphRef.current).selectAll(".tooltip").remove();
 
@@ -55,33 +52,9 @@ const GraphPage = () => {
       .attr("width", dimensions.width)
       .attr("height", dimensions.height);
     
-    // Add starfield background
     const starfield = svg.append("g").attr("class", "starfield");
     
-    // Create stars
-    const numStars = 200;
-    const stars = [];
-    for (let i = 0; i < numStars; i++) {
-      const x = Math.random() * dimensions.width;
-      const y = Math.random() * dimensions.height;
-      const radius = Math.random() * 1.5;
-      const opacity = 0.3 + Math.random() * 0.7;
-      const duration = 1000 + Math.random() * 3000;
-      
-      const star = starfield.append("circle")
-        .attr("cx", x)
-        .attr("cy", y)
-        .attr("r", radius)
-        .attr("fill", "#fff")
-        .attr("opacity", opacity);
-      
-      stars.push(star);
-      
-      // Animate star twinkling
-      animateStar(star, opacity, duration);
-    }
     
-    // Function to animate star twinkling
     function animateStar(star: d3.Selection<SVGCircleElement, unknown, null, undefined>, baseOpacity: number, duration: number) {
       star.transition()
         .duration(duration)
