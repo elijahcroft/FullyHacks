@@ -22,7 +22,7 @@ const MainPage = () => {
                 Sign Out
               </button>
             ) : (
-              <button className="github-btn" onClick={() => signIn("github", { callbackUrl: "http://localhost:3000/graph" })}>
+              <button className="github-btn" onClick={() => signIn("github")}>
                 <svg
                   className="github-icon"
                   xmlns="http://www.w3.org/2000/svg"
