@@ -7,6 +7,13 @@ import { getFriendNames } from '../lib/supabase_helper';
 
 
 const GraphPage = () => {
+  /*
+  <section className="wrapper">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+  </section> */
+
   const graphRef = useRef<HTMLDivElement>(null);
   const flagsRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -80,6 +87,7 @@ const GraphPage = () => {
       .enter()
       .append("div")
       .attr("class", "node-container");
+
     
     // Add images to nodes
     nodes.each(function(d: any) {
