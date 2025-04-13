@@ -1,0 +1,21 @@
+body{
+    background: radial-gradient(circle, rgba(50, 50, 50, .1), rgba(0, 0, 0, 1));
+}
+
+.landing{
+    margin: auto;
+    position: absolute;
+    color: white;
+    width: auto;
+    height: 200px;
+    left: 50%;
+    top: 50%;
+
+    
+
+    background-color: rgb(149, 0, 255);
+    
+    text-align: center;
+
+
+}

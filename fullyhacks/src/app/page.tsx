@@ -1,8 +1,14 @@
-
+import './page.css'
 const MainPage = () => {
 
-  return <div>hello world</div>
+  return <div className="landing">hello world
+  
+  
+  
+  </div>
 }
 
 
 export default MainPage
+
+
