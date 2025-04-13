@@ -12,6 +12,9 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
+    async redirect({ url, baseUrl }) {
+        return 'http://localhost:3000/graph';
+    },
     async signIn({ user }) {
       const { id, name } = user;
   

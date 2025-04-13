@@ -1,10 +1,16 @@
   'use client';
   
+import { useRouter } from 'next/router';
   import './page.css';
   import { signIn, signOut, useSession } from "next-auth/react";
 
   const MainPage = () => {
     const { data: session } = useSession();
+    const router = useRouter();
+    if (session) {
+      router.push('/graph');
+      return null;
+    };
 
     return (
       <div className='center'>
