@@ -17,6 +17,13 @@ interface GraphLink extends d3.SimulationLinkDatum<GraphNode> {
 }
 
 const GraphPage = () => {
+  /*
+  <section className="wrapper">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+  </section> */
+
   const graphRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
