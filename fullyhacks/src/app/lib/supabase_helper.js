@@ -8,7 +8,7 @@ export const supabase = createClient(
 
 export async function getFriendNames(userId) {
     const { data: user, error: userError } = await supabase
-      .from('people')
+      .from('profiles')
       .select('friends')
       .eq('id', userId)
       .single();
@@ -18,7 +18,7 @@ export async function getFriendNames(userId) {
     const friendIds = user.friends;
   
     const { data: friends, error: friendsError } = await supabase
-      .from('people')
+      .from('profiles')
       .select('name')
       .in('id', friendIds);
   
@@ -28,15 +28,15 @@ export async function getFriendNames(userId) {
       
   }
 
-  // export async function getAllPeople() {
-  //   const { data: people, error: peopleError } = await supabase
-  //     .from('people')
-  //     .select('*');
+  export async function getAllPeople() {
+    const { data: people, error: peopleError } = await supabase
+      .from('profiles')
+      .select('*');
 
-  //   if (peopleError) return [];
+    if (peopleError) return [];
 
-  //   return people;
-  // }
+    return people;
+  }
 
 
   

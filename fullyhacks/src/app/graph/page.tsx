@@ -60,7 +60,6 @@ const GraphPage = () => {
     // Use the imported graph data directly
     let userId = 123517214
     const friendNames = getFriendNames(userId);
-    
     const graph = graphData;
 
 
