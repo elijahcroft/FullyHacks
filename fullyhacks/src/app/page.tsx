@@ -1,14 +1,30 @@
-import './page.css'
-const MainPage = () => {
+  'use client';
+  
+  import './page.css';
+  import { signIn, signOut, useSession } from "next-auth/react";
 
-  return   <div className="outer-box">Welcome to Starzg
+  const MainPage = () => {
+    const { data: session } = useSession();
 
-  <div className="landing">hello world
-  <h1>hi</h1> 
-  </div>
+    return (
+      <div className='center'>
+        <div className="box">
+          <h1>{session ? `Welcome, ${session.user?.name}` : "Login"}</h1>
+          <hr className='line'></hr>
+          <div className='inner'>
+            {session ? (
+              <>
+                <button onClick={() => signOut()}>Sign Out</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => signIn("github")}>Login with GitHub</button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  </div>
-}
-
-
-export default MainPage
+  export default MainPage;

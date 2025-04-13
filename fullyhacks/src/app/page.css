@@ -1,29 +1,69 @@
-body{
-    background: radial-gradient(circle, rgba(50, 50, 50, .1), rgba(0, 0, 0, 1));
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000000;
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Tiled star pattern */
+    font-family: 'Orbitron', sans-serif; /* Space-inspired font */
+    color: #fff;
+    background-repeat: repeat; /* Ensure the background tiles */
+    background-size: auto; /* Use the natural size of the tile */
 }
-
-.landing{
-    margin: auto;
-    position: absolute;
-    color: white;
-    width: auto;
-    height: 200px;
-    left: 50%;
-    top: 50%;
-
-    
-
-    background-color: rgb(149, 0, 255);
-    
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #00d4ff; /* Neon blue */
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+}
+.line {
+    margin-top: 1rem;
+    border: none;
+    height: 2px;
+    background-color: #fff;
+    opacity: 0.3;
+}
+.box {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 212, 255, 0.5);
+    width: 400px;
     text-align: center;
-
-
+    font-size: 1rem;
+    color: #fff;
+    backdrop-filter: blur(10px);
 }
-
-.outer-box{
-    width: 320px;
+.inner {
+    margin-top: 2rem;
+}
+.inner input {
     height: 50px;
-    padding: 10px;
-    border: 5px solid rgb(229, 25, 25);
-    margin: 0;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 0 1rem;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
+.inner input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.inner input:focus {
+    border-color: #ffffff;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 15px #ffffff;
+}
+input {
+    width: 100%;
+}
+input:hover {
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
