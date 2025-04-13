@@ -6,11 +6,6 @@ import { useRouter } from 'next/router';
 
   const MainPage = () => {
     const { data: session } = useSession();
-    const router = useRouter();
-    if (session) {
-      router.push('/graph');
-      return null;
-    };
 
     return (
       <div className='center'>
