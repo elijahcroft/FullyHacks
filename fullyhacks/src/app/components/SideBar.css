@@ -1,0 +1,58 @@
+.side-bar {
+position: fixed;
+top: 0;
+right: 0; 
+width: 250px;
+height: 100vh;
+background-color: #1e1e1e; 
+color: white;
+padding: 20px;
+box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+transition: transform 0.3s ease-in-out;
+transform: translateX(0); 
+z-index: 1000;
+}
+
+.side-bar.hidden {
+transform: translateX(100%);
+}
+
+.toggle-button {
+position: fixed;
+top: 20px;
+right: 20px; 
+background: transparent;
+border: none;
+cursor: pointer;
+z-index: 1100;
+}
+
+.toggle-button img {
+width: 30px;
+height: 30px;
+}
+
+.user-profile {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.user-profile img {
+width: 60px;
+height: 60px;
+border-radius: 50%;
+background-color: #444;
+margin-bottom: 10px;
+}
+
+.list-of-user {
+list-style: none;
+padding: 0;
+text-align: center;
+}
+
+.user-name {
+font-weight: bold;
+}
