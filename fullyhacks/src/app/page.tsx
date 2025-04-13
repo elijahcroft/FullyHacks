@@ -1,14 +1,14 @@
 import './page.css'
 const MainPage = () => {
 
-  return   <div className="outer-box">Welcome to Starzg
+  return (
+    <div className='center'>
+      
+      <div className="box">Hello</div>
+    </div>
+  );
+};
 
-  <div className="landing">hello world
-  <h1>hi</h1> 
-  </div>
-
-  </div>
-}
 
 
 export default MainPage
