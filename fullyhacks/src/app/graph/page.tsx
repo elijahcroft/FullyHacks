@@ -40,6 +40,7 @@ const GraphPage = () => {
       window.removeEventListener('resize', updateDimensions);
     };
   }, []);
+  
 
   useEffect(() => {
     if (!graphRef.current || dimensions.width === 0) return;
@@ -53,6 +54,42 @@ const GraphPage = () => {
       .append("svg")
       .attr("width", dimensions.width)
       .attr("height", dimensions.height);
+    
+    // Add starfield background
+    const starfield = svg.append("g").attr("class", "starfield");
+    
+    // Create stars
+    const numStars = 200;
+    const stars = [];
+    for (let i = 0; i < numStars; i++) {
+      const x = Math.random() * dimensions.width;
+      const y = Math.random() * dimensions.height;
+      const radius = Math.random() * 1.5;
+      const opacity = 0.3 + Math.random() * 0.7;
+      const duration = 1000 + Math.random() * 3000;
+      
+      const star = starfield.append("circle")
+        .attr("cx", x)
+        .attr("cy", y)
+        .attr("r", radius)
+        .attr("fill", "#fff")
+        .attr("opacity", opacity);
+      
+      stars.push(star);
+      
+      // Animate star twinkling
+      animateStar(star, opacity, duration);
+    }
+    
+    // Function to animate star twinkling
+    function animateStar(star: d3.Selection<SVGCircleElement, unknown, null, undefined>, baseOpacity: number, duration: number) {
+      star.transition()
+        .duration(duration)
+        .attr("opacity", baseOpacity * (0.3 + Math.random() * 0.7))
+        .on("end", function() {
+          animateStar(star, baseOpacity, duration);
+        });
+    }
     
     // Create tooltip
     const tooltip = d3.select(graphRef.current)
@@ -89,10 +126,10 @@ const GraphPage = () => {
         }));
         // Create a simple force simulation
         const simulation = d3.forceSimulation<GraphNode>()
-          .force("link", d3.forceLink<GraphNode, GraphLink>().id(d => d.id).distance(100))
+          .force("link", d3.forceLink<GraphNode, GraphLink>().id(d => d.id).distance(150))
           .force("charge", d3.forceManyBody().strength(-300))
           .force("center", d3.forceCenter(dimensions.width / 2, dimensions.height / 2))
-          .force("collision", d3.forceCollide().radius(50));
+          .force("collision", d3.forceCollide().radius(100));
 
         // Create links
         const link = svg.append("g")
@@ -101,7 +138,60 @@ const GraphPage = () => {
           .enter().append("line")
           .attr("stroke-width", "2")
           .attr("class", "links")
-          .attr("stroke", "#999");
+          .attr("stroke", "#4a4a8a")
+          .attr("stroke-dasharray", "5,5")
+          .attr("stroke-dashoffset", function() {
+            return Math.random() * 10;
+          });
+        
+        // Add cosmic particles along the links
+        const particles = svg.append("g")
+          .selectAll("circle")
+          .data(links.flatMap(link => {
+            // Create multiple particles per link
+            const count = 3;
+            return Array(count).fill(0).map((_, i) => ({
+              link,
+              position: i / count
+            }));
+          }))
+          .enter()
+          .append("circle")
+          .attr("r", 2)
+          .attr("fill", "#fff")
+          .attr("opacity", 0.7)
+          .attr("filter", "url(#glow)");
+        
+        // Animate links
+        function animateLinks() {
+          link.attr("stroke-dashoffset", function() {
+            const current = parseFloat(d3.select(this).attr("stroke-dashoffset"));
+            return (current - 0.5) % 10;
+          });
+          
+          // Animate particles along the links
+          particles.attr("cx", function(d) {
+            const link = d.link;
+            const source = link.source as GraphNode;
+            const target = link.target as GraphNode;
+            const position = d.position;
+            const sourceX = source.x || 0;
+            const targetX = target.x || 0;
+            return sourceX + (targetX - sourceX) * position;
+          })
+          .attr("cy", function(d) {
+            const link = d.link;
+            const source = link.source as GraphNode;
+            const target = link.target as GraphNode;
+            const position = d.position;
+            const sourceY = source.y || 0;
+            const targetY = target.y || 0;
+            return sourceY + (targetY - sourceY) * position;
+          });
+          
+          requestAnimationFrame(animateLinks);
+        }
+        animateLinks();
         
         // Create nodes
         const node = svg.append("g")
@@ -110,10 +200,41 @@ const GraphPage = () => {
           .enter()
           .append("g");
         
+        // Add glow filter definition
+        const defs = svg.append("defs");
+        const filter = defs.append("filter")
+          .attr("id", "glow")
+          .attr("x", "-50%")
+          .attr("y", "-50%")
+          .attr("width", "200%")
+          .attr("height", "200%");
+        
+        filter.append("feGaussianBlur")
+          .attr("stdDeviation", "3")
+          .attr("result", "coloredBlur");
+        
+        const feMerge = filter.append("feMerge");
+        feMerge.append("feMergeNode")
+          .attr("in", "coloredBlur");
+        feMerge.append("feMergeNode")
+          .attr("in", "SourceGraphic");
+        
         // Add circles to nodes
         node.append("circle")
           .attr("r", d => d.isMainUser ? 40 : 25)  // Make Jacob's node larger
-          .attr("fill", d => d.isMainUser ? "#4299e1" : "#48bb78");
+          .attr("fill", d => d.isMainUser ? "#6a5acd" : "#4169e1")  // Cosmic colors
+          .attr("stroke", "#fff")
+          .attr("stroke-width", "1.5")
+          .attr("filter", "url(#glow)");
+        
+        // Add cosmic pattern to nodes
+        node.append("circle")
+          .attr("r", d => d.isMainUser ? 35 : 20)  // Slightly smaller than the main circle
+          .attr("fill", "none")
+          .attr("stroke", "#fff")
+          .attr("stroke-width", "0.5")
+          .attr("stroke-dasharray", "2,2")
+          .attr("opacity", "0.7");
         
         // Add text labels
         node.append("text")
@@ -121,7 +242,9 @@ const GraphPage = () => {
           .attr("text-anchor", "middle")
           .attr("dy", 35)
           .style("fill", "#fff")
-          .style("font-weight", d => d.isMainUser ? "bold" : "normal");
+          .style("font-weight", d => d.isMainUser ? "bold" : "normal")
+          .style("font-family", "var(--font-family)")
+          .style("text-shadow", "0 0 5px rgba(255, 255, 255, 0.7)");
         
         // Add drag behavior
         const drag = d3.drag<SVGGElement, GraphNode>()
@@ -196,7 +319,7 @@ const GraphPage = () => {
   return (
     <div className="graph-container">
       <SideBar />
-      <h2>Friend Connections</h2>
+      <h2 className="space-title">Cosmic Connections</h2>
       <div id="graph" ref={graphRef} className="graph-svg-container"></div>
     </div>
   );
