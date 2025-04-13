@@ -1,11 +1,30 @@
-import PathPage from '../app/components/PathPage';
-import SideBar from '../app/components/SideBar'
+  'use client';
+  
+  import './page.css';
+  import { signIn, signOut, useSession } from "next-auth/react";
 
-export default function Home() {
-  return (
-    <div>
-      <PathPage width={800} height={500}/>
-      <SideBar />
-    </div>
+  const MainPage = () => {
+    const { data: session } = useSession();
+
+    return (
+      <div className='center'>
+        <div className="box">
+          <h1>{session ? `Welcome, ${session.user?.name}` : "Login"}</h1>
+          <hr className='line'></hr>
+          <div className='inner'>
+            {session ? (
+              <>
+                <button onClick={() => signOut()}>Sign Out</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => signIn("github")}>Login with GitHub</button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     );
-}
+  }
+
+  export default MainPage;
