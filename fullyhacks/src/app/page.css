@@ -1,22 +1,29 @@
 body{
-    background-color: black;
+    background: radial-gradient(circle, rgba(50, 50, 50, .1), rgba(0, 0, 0, 1));
 }
 
+.landing{
+    margin: auto;
+    position: absolute;
+    color: white;
+    width: auto;
+    height: 200px;
+    left: 50%;
+    top: 50%;
 
+    
 
-.center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.box {
-    width: 500px;
-    height: 350px;
-    background: lightgray;
+    background-color: rgb(149, 0, 255);
+    
     text-align: center;
-    line-height: 150px;
-    border-radius: 20px;
 
-  }
+
+}
+
+.outer-box{
+    width: 320px;
+    height: 50px;
+    padding: 10px;
+    border: 5px solid rgb(229, 25, 25);
+    margin: 0;
+}
