@@ -28,12 +28,15 @@ const GraphPage = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [nodes, setNodes] = useState<GraphNode[]>([]);
   const [links, setLinks] = useState<GraphLink[]>([]);
-
+  
   const addNode = (name: string) => {
+    var spawn = 1;
     const newNode: GraphNode = {
       id: `node_${nodes.length}`,
       name,
       isMainUser: false,
+      x: Math.random() * spawn,
+      y: Math.random() * spawn,
     };
     setNodes((prevNodes) => [...prevNodes, newNode]);
     setLinks((prevLinks) => [
@@ -105,12 +108,15 @@ const GraphPage = () => {
           { 
             id: "jacob", 
             name: "Jacob", 
-            isMainUser: true
+            isMainUser: true,
+            
           },
           ...friendNames.map((name, idx) => ({
             id: `friend_${idx}`,
             name: name,
-            isMainUser: false
+            isMainUser: false,
+            x: dimensions.width / 2 * Math.random(),
+            y: dimensions.height / 2 * Math.random()
           }))
         ];
 
@@ -126,7 +132,7 @@ const GraphPage = () => {
         // Create a simple force simulation
         const simulation = d3.forceSimulation<GraphNode>()
           .force("link", d3.forceLink<GraphNode, GraphLink>().id(d => d.id).distance(150))
-          .force("charge", d3.forceManyBody().strength(-300))
+          .force("charge", d3.forceManyBody().strength(400))
           .force("center", d3.forceCenter(dimensions.width / 2, dimensions.height / 2))
           .force("collision", d3.forceCollide().radius(100));
 
