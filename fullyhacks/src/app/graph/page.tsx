@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import "./graph.css";
 import graphData from "./graph.json";
 
+
 const GraphPage = () => {
   const graphRef = useRef<HTMLDivElement>(null);
   const flagsRef = useRef<HTMLDivElement>(null);
