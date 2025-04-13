@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .side-bar {
 position: fixed;
 top: 0;
 right: 0;   
 width: 275px;
 height: 100vh;
-background: linear-gradient(to bottom, #1a1f42, #1d2147);
+background: linear-gradient(to bottom, #121212, #101015);
 color: white;
 padding: 20px;
 box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
@@ -14,7 +16,7 @@ z-index: 1000;
 border-radius: 25px;
 border: 7px solid #ffffff;
 box-shadow: 0 0 10px rgba(255, 255, 255, .3);
-
+font-family: 'Space Mono', monospace;
 }
 
 .side-bar.hidden {
@@ -59,4 +61,16 @@ text-align: center;
 
 .user-name {
 font-weight: bold;
+}
+
+.sidebar_img {
+    filter: invert(1);
+    transform: scaleX(1.4);
+}
+
+.sidebar_img:hover {
+    box-shadow: 10px 0 30px rgba(255, 255, 255, 1);
+    transition: all 0.3s ease;
+    transform: scale(2);
+    background-color: transparent;
 }

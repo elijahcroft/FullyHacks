@@ -12,7 +12,7 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
-    async redirect({ url, baseUrl }) {
+    async redirect() {
         return 'http://localhost:3000/graph';
     },
     async signIn({ user }) {

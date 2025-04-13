@@ -39,6 +39,23 @@ export async function getFriendNames(userId) {
   }
 
 
+  export async function getFriendProfiles(userId) {
+    const { data: user } = await supabase
+      .from('profiles')
+      .select('friends')
+      .eq('id', userId)
+      .single();                
+  
+    if (!user) return [];
+    const { friends } = user;
+  
+    const { data } = await supabase
+      .from('profiles')
+      .select('id, name, location, avatar_url')  // ← read only
+      .in('id', friends);
+  
+    return data ?? [];
+  }
   
 
   export async function addFriend(userId, friendId) {
