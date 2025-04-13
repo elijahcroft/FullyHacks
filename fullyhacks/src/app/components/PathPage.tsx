@@ -8,11 +8,10 @@ interface PathPageProps {
     height?: number;
 }
 
-const PathPage: React.FC<PathPageProps> = ({ width = 800, height = 500 }) => {
+const PathPage: React.FC<PathPageProps> = () => {
     /* 👇  IMPORTANT – we **return** JSX  */
     return (
     <div className="flex items-center justify-center">
-        {/* <Graph width={width} height={height} /> */}
     </div>
     );
 };

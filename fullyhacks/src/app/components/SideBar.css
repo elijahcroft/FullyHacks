@@ -60,3 +60,14 @@ text-align: center;
 .user-name {
 font-weight: bold;
 }
+
+.sidebar_img {
+    filter: invert(1);
+    transform: scaleX(1.4);
+}
+
+.sidebar_img:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    transition: all 0.3s ease;
+    transform: scaleX(1.7);
+}

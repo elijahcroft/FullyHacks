@@ -100,7 +100,7 @@ const GraphPage = () => {
     // Fetch friend data and create graph
     const setupGraphData = async () => {
       try {
-        const userId = 123517214;
+        const userId = 15;
         const friendNames = await getFriendNames(userId);
         
         console.log("Friend names:", friendNames); // Debug log
