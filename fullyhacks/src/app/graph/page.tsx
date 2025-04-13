@@ -40,9 +40,10 @@ const GraphPage = () => {
       window.removeEventListener('resize', updateDimensions);
     };
   }, []);
+  
 
   useEffect(() => {
-    if (!graphRef.current || dimensions.width === 0) return;
+    if (!graphRef.current || !flagsRef.current || dimensions.width === 0) return;
 
     // Clear previous SVG if it exists
     d3.select(graphRef.current).selectAll("svg").remove();
@@ -139,18 +140,21 @@ const GraphPage = () => {
           .attr("class", "links")
           .attr("stroke", "#4a4a8a")
           .attr("stroke-dasharray", "5,5")
-          .attr("stroke-dashoffset", () => Math.random() * 10);
+          .attr("stroke-dashoffset", function() {
+            return Math.random() * 10;
+          });
         
         // Add cosmic particles along the links
-        const particlesPerLink = 3;
         const particles = svg.append("g")
           .selectAll("circle")
-          .data(links.flatMap(link => 
-            Array(particlesPerLink).fill(0).map((_, i) => ({
+          .data(links.flatMap(link => {
+            // Create multiple particles per link
+            const count = 3;
+            return Array(count).fill(0).map((_, i) => ({
               link,
-              position: i / particlesPerLink
-            }))
-          ))
+              position: i / count
+            }));
+          }))
           .enter()
           .append("circle")
           .attr("r", 2)
@@ -158,9 +162,8 @@ const GraphPage = () => {
           .attr("opacity", 0.7)
           .attr("filter", "url(#glow)");
         
-        // Animate links and particles
+        // Animate links
         function animateLinks() {
-          // Animate link dash offset
           link.attr("stroke-dashoffset", function() {
             const current = parseFloat(d3.select(this).attr("stroke-dashoffset"));
             return (current - 0.5) % 10;
@@ -168,18 +171,22 @@ const GraphPage = () => {
           
           // Animate particles along the links
           particles.attr("cx", function(d) {
-            const source = d.link.source as GraphNode;
-            const target = d.link.target as GraphNode;
+            const link = d.link;
+            const source = link.source as GraphNode;
+            const target = link.target as GraphNode;
+            const position = d.position;
             const sourceX = source.x || 0;
             const targetX = target.x || 0;
-            return sourceX + (targetX - sourceX) * d.position;
+            return sourceX + (targetX - sourceX) * position;
           })
           .attr("cy", function(d) {
-            const source = d.link.source as GraphNode;
-            const target = d.link.target as GraphNode;
+            const link = d.link;
+            const source = link.source as GraphNode;
+            const target = link.target as GraphNode;
+            const position = d.position;
             const sourceY = source.y || 0;
             const targetY = target.y || 0;
-            return sourceY + (targetY - sourceY) * d.position;
+            return sourceY + (targetY - sourceY) * position;
           });
           
           requestAnimationFrame(animateLinks);
