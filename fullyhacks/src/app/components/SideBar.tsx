@@ -7,7 +7,7 @@ import sidebar_img from '../images/list.png';
 import user from '../images/user.png';
 
 const SideBar = () => {
-  const [profileInfo, setProfileInfo] = useState({
+  const [profileInfo] = useState({
     id: 0,
     img: user,
     name: '',
@@ -15,15 +15,15 @@ const SideBar = () => {
   });
 
   const [showSideBar, setSideBar] = useState(false);
-  const [connectionbtn, showConnectionBTN] = useState(false);
+  const [showConnectionBTN] = useState(false);
 
   function toggleSideBar() {
     setSideBar(prevSide => !prevSide);
   }
 
-  function toggleConnection() {
-    showConnectionBTN(prevbtn => !prevbtn);
-  }
+  // function toggleConnection() {
+  //   showConnectionBTN(prevbtn => !prevbtn);
+  // }
 
   return (
     <div>

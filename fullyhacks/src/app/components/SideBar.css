@@ -1,16 +1,20 @@
 .side-bar {
 position: fixed;
 top: 0;
-right: 0; 
-width: 250px;
+right: 0;   
+width: 275px;
 height: 100vh;
-background-color: #1e1e1e; 
+background: linear-gradient(to bottom, #1a1f42, #1d2147);
 color: white;
 padding: 20px;
 box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
 transition: transform 0.3s ease-in-out;
 transform: translateX(0); 
 z-index: 1000;
+border-radius: 25px;
+border: 7px solid #ffffff;
+box-shadow: 0 0 10px rgba(255, 255, 255, .3);
+
 }
 
 .side-bar.hidden {
@@ -55,4 +59,15 @@ text-align: center;
 
 .user-name {
 font-weight: bold;
+}
+
+.sidebar_img {
+    filter: invert(1);
+    transform: scaleX(1.4);
+}
+
+.sidebar_img:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    transition: all 0.3s ease;
+    transform: scaleX(1.7);
 }

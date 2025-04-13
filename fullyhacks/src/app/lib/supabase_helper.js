@@ -39,6 +39,23 @@ export async function getFriendNames(userId) {
   }
 
 
+  export async function getFriendProfiles(userId) {
+    const { data: user } = await supabase
+      .from('profiles')
+      .select('friends')
+      .eq('id', userId)
+      .single();                
+  
+    if (!user) return [];
+    const { friends } = user;
+  
+    const { data } = await supabase
+      .from('profiles')
+      .select('id, name, location, avatar_url')  // ← read only
+      .in('id', friends);
+  
+    return data ?? [];
+  }
   
 
   export async function addFriend(userId, friendId) {
@@ -64,3 +81,49 @@ export async function getFriendNames(userId) {
     return true; 
   }
   
+  export async function removeFriend(userId, friendId) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('friends')
+      .eq('id', userId)
+      .single();
+  
+    if (error || !data) return false;
+  
+    const friendIds = Array.isArray(data.friends) ? data.friends : [];
+  
+    if (friendIds.includes(friendId)) {
+      const updatedFriends = friendIds.filter(id => id !== friendId);
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ friends: updatedFriends })
+        .eq('id', userId);
+      return !updateError;
+    }
+  
+    return true; 
+}
+
+/**
+ * Fetch new nodes from the database.
+ * @returns {Promise<Array>} An array of new nodes.
+ */
+export async function fetchNewNodes() {
+    try {
+        // Fetch nodes from the "nodes" table
+        const { data, error } = await supabase
+          .from('profiles') // Replace 'nodes' with your actual table name
+          .select('*');
+
+        if (error) {
+            console.error('Error fetching nodes:', error);
+            return [];
+        }
+
+        // Return the fetched nodes
+        return data || [];
+    } catch (err) {
+        console.error('Unexpected error fetching nodes:', err);
+        return [];
+    }
+}
