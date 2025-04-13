@@ -17,6 +17,7 @@ export default NextAuth({
     },
     async signIn({ user }) {
       const { id, name } = user;
+      console.log("User:", user);
   
       
       const { data, error: selectError } = await supabase
