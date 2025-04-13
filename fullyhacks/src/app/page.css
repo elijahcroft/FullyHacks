@@ -1,16 +1,16 @@
-/**@import url('stars.css');*/
+@import url('stars.css');
 
 .center {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #000000;
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Tiled star pattern */
+    /*background: #000000;
+    /*background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Tiled star pattern */
     font-family: 'Orbitron', sans-serif; /* Space-inspired font */
     color: #fff;
-    background-repeat: repeat; /* Ensure the background tiles */
-    background-size: auto; /* Use the natural size of the tile */
+    /*background-repeat: repeat; /* Ensure the background tiles */
+    /*background-size: auto; /* Use the natural size of the tile */
 }
 h1 {
     font-size: 3rem;
@@ -97,7 +97,7 @@ input:hover {
 
 
 
-/*
+
 body,ul{
     margin:0;
     padding:0;
@@ -203,4 +203,4 @@ body,ul{
     }
       
     }
-    */
+    
