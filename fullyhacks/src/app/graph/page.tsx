@@ -319,7 +319,7 @@ const GraphPage = () => {
   return (
     <div className="graph-container">
       <SideBar />
-      <h2 className="space-title">Cosmic Connections</h2>
+      <h2 className="space-title">STARS NEAR YOU</h2>
       <div id="graph" ref={graphRef} className="graph-svg-container"></div>
     </div>
   );
