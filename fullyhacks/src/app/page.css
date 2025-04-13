@@ -1,5 +1,11 @@
 @import url('stars.css');
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
 .center {
     display: flex;
     justify-content: center;
@@ -11,6 +17,10 @@
     color: #fff;
     /*background-repeat: repeat; /* Ensure the background tiles */
     /*background-size: auto; /* Use the natural size of the tile */
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
 }
 h1 {
     font-size: 3rem;
@@ -94,7 +104,6 @@ input:hover {
 .github-icon {
     vertical-align: middle;
 }
-
 
 
 
