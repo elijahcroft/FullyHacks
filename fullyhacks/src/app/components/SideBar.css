@@ -11,6 +11,9 @@ box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
 transition: transform 0.3s ease-in-out;
 transform: translateX(0); 
 z-index: 1000;
+border-radius: 25px;
+border: 5px solid #ffffff;
+
 }
 
 .side-bar.hidden {
