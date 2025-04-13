@@ -50,7 +50,7 @@ const GraphPage = () => {
   
 
   useEffect(() => {
-    if (!graphRef.current || !flagsRef.current || dimensions.width === 0) return;
+    if (!graphRef.current || dimensions.width === 0) return;
 
     // Clear previous SVG if it exists
     d3.select(graphRef.current).selectAll("svg").remove();

@@ -1,7 +1,7 @@
 .side-bar {
 position: fixed;
 top: 0;
-right: 0; 
+right: 0;   
 width: 275px;
 height: 100vh;
 background: linear-gradient(to bottom, #1a1f42, #1d2147);
