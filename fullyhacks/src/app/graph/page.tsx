@@ -3,8 +3,7 @@ import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import "./graph.css";
 import graphData from "./graph.json";
-
-import { getFriendNames } from '@/app/lib/supabase_helper.js';
+import { getFriendNames } from '../lib/supabase_helper';
 
 
 const GraphPage = () => {
@@ -59,7 +58,12 @@ const GraphPage = () => {
       .force("collision", d3.forceCollide().radius(40));
     
     // Use the imported graph data directly
+    let userId = 123517214
+    const friendNames = getFriendNames(userId);
+    
     const graph = graphData;
+
+
     
     // Create links
     const link = svg.append("g")
@@ -86,7 +90,12 @@ const GraphPage = () => {
     });
     
     // Add drag behavior
-    nodes.call(d3.drag() as any);
+    const drag = d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
+    
+    nodes.call(drag as any);
     
     // Add event handlers
     nodes.on("mouseover", function(event: any, d: any) {
@@ -141,11 +150,6 @@ const GraphPage = () => {
       d.fx = null;
       d.fy = null;
     }
-    
-    // Add drag event handlers
-    nodes.on("dragstart", dragstarted)
-        .on("drag", dragged)
-        .on("dragend", dragended);
     
     // Cleanup function
     return () => {

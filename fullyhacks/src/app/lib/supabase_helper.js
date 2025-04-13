@@ -25,12 +25,18 @@ export async function getFriendNames(userId) {
     if (friendsError) return [];
   
     return friends.map(f => f.name);
-    
-    
- 
-    
       
   }
+
+  // export async function getAllPeople() {
+  //   const { data: people, error: peopleError } = await supabase
+  //     .from('people')
+  //     .select('*');
+
+  //   if (peopleError) return [];
+
+  //   return people;
+  // }
 
 
   
