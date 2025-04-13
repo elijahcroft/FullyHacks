@@ -6,7 +6,7 @@ export const supabase = createClient(
 )
 
 
-async function getFriendNames(userId) {
+export async function getFriendNames(userId) {
     const { data: user, error: userError } = await supabase
       .from('people')
       .select('friends')

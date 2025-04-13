@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import "./graph.css";
 import graphData from "./graph.json";
 
+import { getFriendNames } from '@/app/lib/supabase_helper.js';
+
 
 const GraphPage = () => {
   const graphRef = useRef<HTMLDivElement>(null);
