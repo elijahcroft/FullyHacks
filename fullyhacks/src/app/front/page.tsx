@@ -1,6 +1,11 @@
+import './page.css';
 
 const FrontPage = () => {
-  return <div>FrontPage</div>;
+  return (
+    <div>
+      <h2 className="hello">.</h2>
+    </div>
+  );
 };
 
 export default FrontPage;
