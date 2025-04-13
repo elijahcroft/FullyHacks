@@ -19,3 +19,11 @@ body{
 
 
 }
+
+.outer-box{
+    width: 320px;
+    height: 50px;
+    padding: 10px;
+    border: 5px solid rgb(229, 25, 25);
+    margin: 0;
+}
