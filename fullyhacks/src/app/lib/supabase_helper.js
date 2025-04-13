@@ -40,3 +40,27 @@ export async function getFriendNames(userId) {
 
 
   
+
+  export async function addFriend(userId, friendId) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('friends')
+      .eq('id', userId)
+      .single();
+  
+    if (error || !data) return false;
+  
+    const friendIds = Array.isArray(data.friends) ? data.friends : [];
+  
+    if (!friendIds.includes(friendId)) {
+      friendIds.push(friendId);
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ friends: friendIds })
+        .eq('id', userId);
+      return !updateError;
+    }
+  
+    return true; 
+  }
+  
