@@ -15,6 +15,7 @@ const SideBar = () => {
   });
 
   const [showSideBar, setSideBar] = useState(false);
+  const [showConnectionBTN] = useState(false);
 
   function toggleSideBar() {
     setSideBar(prevSide => !prevSide);
@@ -27,7 +28,7 @@ const SideBar = () => {
   return (
     <div>
       <button className="toggle-button" onClick={toggleSideBar}>
-        <Image className = "sidebar_img"src={sidebar_img} alt="Toggle Sidebar" width={30} height={30} />
+        <Image src={sidebar_img} alt="Toggle Sidebar" width={30} height={30} />
       </button>
 
       <div className={`side-bar ${!showSideBar ? 'hidden' : ''}`}>
