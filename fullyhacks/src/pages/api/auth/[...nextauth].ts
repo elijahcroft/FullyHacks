@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import { supabase } from "@/app/lib/supabase";
 
 export default NextAuth({
   providers: [
@@ -9,4 +10,7 @@ export default NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+
+  
+    
 });
