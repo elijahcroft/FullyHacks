@@ -41,26 +41,41 @@
   height: 100%;
   border-radius: 50%;
   border: 2px solid #fff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Space-themed node styling */
+circle {
+  transition: all 0.3s ease;
+}
+
+circle:hover {
+  filter: brightness(1.3) drop-shadow(0 0 8px rgba(138, 43, 226, 0.8));
+  transform: scale(1.05);
 }
 
 .tooltip {
   position: absolute;
   padding: 8px;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
+  background: rgba(10, 10, 42, 0.9);
+  color: #fff;
   border-radius: 4px;
   pointer-events: none;
   z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
 }
 
 .links {
-  stroke: #999;
-  stroke-opacity: 0.6;
+  stroke: #4a4a8a;
+  stroke-opacity: 0.7;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 3px rgba(138, 43, 226, 0.5));
 }
 
 .tunnel-link {
   stroke: #ff7f0e;
-  stroke-opacity: 0.6;
+  stroke-opacity: 0.8;
   stroke-dasharray: 5, 5;
+  filter: drop-shadow(0 0 5px rgba(255, 127, 14, 0.7));
 }
