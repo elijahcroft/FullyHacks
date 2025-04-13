@@ -5,8 +5,6 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
 
-import { supabase } from './superbase'
-
 export async function getFriendNamesById(userId) {
   try {
     // Step 1: Get the user's friend_ids
