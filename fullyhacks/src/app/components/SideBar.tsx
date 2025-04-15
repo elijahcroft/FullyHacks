@@ -31,6 +31,7 @@ const SideBar: React.FC<SideBarProps> = ({ onAddNode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isScrolling, setIsScrolling] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -43,6 +44,7 @@ const SideBar: React.FC<SideBarProps> = ({ onAddNode }) => {
         setUsers(allUsers as User[]);
       } catch (error) {
         console.error('Error fetching users:', error);
+        setError("Failed to load users. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -105,9 +107,9 @@ const SideBar: React.FC<SideBarProps> = ({ onAddNode }) => {
           )}
 
           <ul className="list-of-user">
-            <li className="user-name">{profileInfo.name}</li>
+            <li className="user-name">{"Abel Daniel"}</li>
             <button className="addfollow-btn" onClick={() => removeFriend(1,2)}>Add Follow</button>
-            <li>{profileInfo.location}</li>
+            <li>{"Fullerton.edu"}</li>
           </ul>
           <button className="add-node-btn styled-btn" onClick={handleAddNode}>
             Add Node
@@ -122,14 +124,16 @@ const SideBar: React.FC<SideBarProps> = ({ onAddNode }) => {
             onScroll={handleScroll}
           >
             {loading ? (
-              <div className="loading-stars">Loading cosmic explorers...</div>
+              <div className="loading-stars">Loading...</div>
+            ) : error ? (
+              <div className="error-message">{error}</div>
             ) : (
               users.map((user) => (
                 <Card
                   key={user.id}
                   userId={user.id}
-                  name={user.name || 'Unknown Explorer'}
-                  location={user.location || 'Unknown Location'}
+                  name={user.name || 'Ryan Wagner'}
+                  location={user.location || 'Fullerton California'}
                   avatarUrl={user.avatar_url}
                   onAddNode={onAddNode} // Pass the onAddNode prop here
                 />

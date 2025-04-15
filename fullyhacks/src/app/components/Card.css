@@ -225,7 +225,7 @@
 .add-friend-btn:hover, .add-node-btn:hover {
   background-color: #4a90e2;
   color: white;
-  transform: scale(1.05);
+  transform: scale(1.1); /* Slightly larger on hover */
 }
 
 .add-friend-btn.disabled {
@@ -238,4 +238,14 @@
 .styled-btn {
   margin-top: 10px;
   font-weight: bold;
+}
+
+.error-message {
+  color: #ff4d4d;
+  background: rgba(255, 77, 77, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
 }

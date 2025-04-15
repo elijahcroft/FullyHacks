@@ -13,42 +13,43 @@ export default NextAuth({
 
   callbacks: {
     async redirect() {
-        return 'http://localhost:3000/graph';
+      return 'http://localhost:3000/graph';
     },
     async signIn({ user }) {
       const { id, name } = user;
-      console.log("User:", user);
-  
-      
-      const { data, error: selectError } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", id)
-        .single();
-  
-      if (selectError && selectError.code !== "PGRST116") {
-        console.error("DB check failed:", selectError);
-        return false;
-      }
-  
-      // If not found, insert them
-      if (!data) {
-        const { error: insertError } = await supabase
+
+      try {
+        const { data, error: selectError } = await supabase
           .from("profiles")
-          .insert({ id, name });
-  
-        if (insertError) {
-          console.error("Insert failed:", insertError);
+          .select("*")
+          .eq("id", id)
+          .single();
+
+        if (selectError && selectError.code !== "PGRST116") {
+          console.error("Database check failed:", selectError.message);
           return false;
         }
+
+        if (!data) {
+          const { error: insertError } = await supabase
+            .from("profiles")
+            .insert({ id, name });
+
+          if (insertError) {
+            console.error("Failed to insert user into profiles:", insertError.message);
+            return false;
+          }
+        }
+
+        return true;
+      } catch (error) {
+        console.error("Unexpected error during sign-in:", error);
+        return false;
       }
-  
-      // Optional: attach their data to session somehow
-  
-      return true;
     },
-  }
-  
-  
-    
+    async session({ session, token }) {
+      session.user.id = token.sub; // Attach the user's ID to the session
+      return session;
+    },
+  },
 });

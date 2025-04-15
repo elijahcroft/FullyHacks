@@ -56,6 +56,7 @@ const Card: React.FC<CardProps> = ({ userId, name, location, avatarUrl, onAddNod
   const handleAddFriend = () => {
     onAddNode(name); // Add a node with the friend's name
     setIsFriendAdded(true); // Disable the button after adding
+    
   };
 
   return (

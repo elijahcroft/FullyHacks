@@ -28,18 +28,29 @@ const GraphPage = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [nodes, setNodes] = useState<GraphNode[]>([]);
   const [links, setLinks] = useState<GraphLink[]>([]);
-
+  
   const addNode = (name: string) => {
     const newNode: GraphNode = {
       id: `node_${nodes.length}`,
       name,
       isMainUser: false,
+      x: Math.random() * dimensions.width,
+      y: Math.random() * dimensions.height,
     };
+
+    const newLink: GraphLink = {
+      source: "jacob",
+      target: newNode.id,
+    };
+
     setNodes((prevNodes) => [...prevNodes, newNode]);
-    setLinks((prevLinks) => [
-      ...prevLinks,
-      { source: "jacob", target: newNode.id },
-    ]);
+    setLinks((prevLinks) => [...prevLinks, newLink]);
+
+    simulation.nodes([...nodes, newNode]);
+    const linkForce = simulation.force("link") as d3.ForceLink<GraphNode, GraphLink>;
+    linkForce.links([...links, newLink]);
+
+    simulation.alpha(0.5).restart(); // Smoothly integrate the new node
   };
 
   useEffect(() => {
@@ -95,7 +106,7 @@ const GraphPage = () => {
     // Fetch friend data and create graph
     const setupGraphData = async () => {
       try {
-        const userId = 15;
+        const userId = 6;
         const friendNames = await getFriendNames(userId);
         
         console.log("Friend names:", friendNames); // Debug log
@@ -104,13 +115,16 @@ const GraphPage = () => {
         const initialNodes: GraphNode[] = [
           { 
             id: "jacob", 
-            name: "Jacob", 
-            isMainUser: true
+            name: "Abel", 
+            isMainUser: true,
+            
           },
           ...friendNames.map((name, idx) => ({
             id: `friend_${idx}`,
             name: name,
-            isMainUser: false
+            isMainUser: false,
+            x: dimensions.width / 2 * Math.random(),
+            y: dimensions.height / 2 * Math.random()
           }))
         ];
 
@@ -125,10 +139,10 @@ const GraphPage = () => {
 
         // Create a simple force simulation
         const simulation = d3.forceSimulation<GraphNode>()
-          .force("link", d3.forceLink<GraphNode, GraphLink>().id(d => d.id).distance(150))
-          .force("charge", d3.forceManyBody().strength(-300))
+          .force("link", d3.forceLink<GraphNode, GraphLink>().id(d => d.id).distance(200))
+          .force("charge", d3.forceManyBody().strength(-500))
           .force("center", d3.forceCenter(dimensions.width / 2, dimensions.height / 2))
-          .force("collision", d3.forceCollide().radius(100));
+          .force("collision", d3.forceCollide().radius(50));
 
         // Create links
         const link = svg.append("g")
@@ -347,10 +361,10 @@ const GraphPage = () => {
 
     // Create a simple force simulation
     const simulation = d3.forceSimulation<GraphNode>()
-      .force("link", d3.forceLink<GraphNode, GraphLink>().id(d => d.id).distance(150))
-      .force("charge", d3.forceManyBody().strength(-300))
+      .force("link", d3.forceLink<GraphNode, GraphLink>().id(d => d.id).distance(200))
+      .force("charge", d3.forceManyBody().strength(-500))
       .force("center", d3.forceCenter(dimensions.width / 2, dimensions.height / 2))
-      .force("collision", d3.forceCollide().radius(100));
+      .force("collision", d3.forceCollide().radius(50));
 
     // Create links
     const link = svg.append("g")
